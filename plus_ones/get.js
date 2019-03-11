@@ -8,9 +8,11 @@ module.exports.get = (event, context, callback) => {
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
     Key: {
-      id: event.pathParameters.id,
+      id: event.pathParameters.url,
     },
   };
+
+  var count = 0
 
   // fetch todo from the database
   dynamoDb.get(params, (error, result) => {

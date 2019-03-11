@@ -24,9 +24,25 @@ module.exports.add_one = (event, context, callback) => {
 
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
+    Key: {
+      id: data.url,
+    },
+  };
+
+  var count = 0
+  dynamoDb.get(params, function(err, data){
+    if (error) {
+      console.error(error);          
+    } else {
+      count = data.count
+    }
+  })
+
+  const params = {
+    TableName: process.env.DYNAMODB_TABLE,
     Item: {
-      id: uuid.v1(),
-      text: data.url,
+      id: data.url,
+      count: count,
       checked: false,
       createdAt: timestamp,
       updatedAt: timestamp,
