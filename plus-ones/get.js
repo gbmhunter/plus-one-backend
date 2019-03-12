@@ -5,10 +5,15 @@ const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-depe
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.get = (event, context, callback) => {
+
+  let data = event.queryStringParameters;
+  console.log('data =')
+  console.log(data)
+
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
     Key: {
-      id: event.pathParameters.url,
+      id: data.url,
     },
   };
 
@@ -21,17 +26,33 @@ module.exports.get = (event, context, callback) => {
       console.error(error);
       callback(null, {
         statusCode: error.statusCode || 501,
-        headers: { 'Content-Type': 'text/plain' },
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true,
+        },
         body: 'Couldn\'t fetch the todo item.',
       });
       return;
     }
 
+    console.log('Database returned result =')
+    console.log(result)
+    if (result.hasOwnProperty('Item')) {
+      count = result.Item.count
+    }
+    console.log('count = ' + count)
+
     // create a response
     const response = {
       statusCode: 200,
-      body: JSON.stringify(result.Item),
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
+      body: JSON.stringify({ 'count': count }),
     };
+    console.log('Returning response =')
+    console.log(response)
     callback(null, response);
   });
 };
