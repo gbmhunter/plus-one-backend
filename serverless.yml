@@ -16,7 +16,9 @@ service: shuriken-backend
 provider:
   name: aws
   runtime: nodejs8.10
-  profile: serverless
+  # If profile is specified, environment variables will
+  # not be found when using TravisCI
+  # profile: serverless 
 
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
