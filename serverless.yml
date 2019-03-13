@@ -33,24 +33,24 @@ provider:
 
 functions:
   hello:
-    handler: plus-ones/hello.hello
+    handler: shuriken/hello.hello
     events:
       - http:
-          path: plus-ones/hello
+          path: shuriken/hello
           method: get
           cors: true
   add:
-    handler: plus-ones/add.add
+    handler: shuriken/add.add
     events:
       - http:
-          path: plus-ones/add
+          path: shuriken/add
           method: post
           cors: true
   get:
-    handler: plus-ones/get.get
+    handler: shuriken/get.get
     events:
       - http:
-          path: plus-ones/get
+          path: shuriken/get
           method: get
           cors: true
 
