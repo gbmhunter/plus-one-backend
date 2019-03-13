@@ -1,3 +1,9 @@
+# Overview
+
+[![Build Status](https://travis-ci.org/gbmhunter/shuriken-backend.svg?branch=master)](https://travis-ci.org/gbmhunter/shuriken-backend)
+
+This is the backend which provides a cloud-based API and storage for the "shuriken" feature on [blog.mbedded.ninja](blog.mbedded.ninja).
+
 # Setup Credentials
 
 You need to create AWS credentials under the profile `serverless` which allow access to create Lambda functions, DynamoDB tables and CloudWatch logs.
